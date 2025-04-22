@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jobjob.albaing.mapper.UserMapper">
+
+    <!-- 회원가입 -->
+    <insert id="registerUser">
+        INSERT INTO users (user_email,
+                           user_password,
+                           user_name,
+                           user_birthdate,
+                           user_gender,
+                           user_phone,
+                           user_address,
+                           user_profile_image,
+                           user_created_at,
+                           user_updated_at,
+                           user_terms_agreement,
+                           user_is_admin)
+        VALUES (#{userEmail},
+                #{userPassword},
+                #{userName},
+                #{userBirthdate},
+                #{userGender},
+                #{userPhone},
+                #{userAddress},
+                #{userProfileImage},
+                #{userCreatedAt},
+                #{userUpdatedAt},
+                #{userTermsAgreement},
+                #{userIsAdmin});
+
+    </insert>
+
+
+
+    <!-- 유저 로그인 -->
+    <select id="loginUser" parameterType="map">
+        SELECT *
+        FROM users
+        WHERE user_email = #{userEmail}
+    </select>
+
+    <!-- 유저 존재여부 확인 -->
+    <select id="isUserExist" resultType="boolean">
+        SELECT COUNT(*) >0
+        FROM users
+        WHERE user_email = #{userEmail}
+    </select>
+
+    <!-- 유저 전화번호 존재여부 확인 -->
+    <select id="isUserPhoneExist" resultType="boolean">
+        SELECT COUNT(*) > 0
+        FROM users
+        WHERE user_phone = #{userPhone}
+    </select>
+
+    <!-- 유저 이메일 찾기 -->
+    <select id="findUserEmail">
+        SELECT user_email
+        FROM users
+        WHERE user_name = #{userName}
+        AND user_phone = #{userPhone}
+    </select>
+
+    <!-- 유저 비밀번호 바꾸기 -->
+    <update id="updateUserPassword">
+        UPDATE users
+        SET user_password = #{encodedPassword}
+        WHERE user_email = #{userEmail}
+    </update>
+
+    <!-- 유저 회원탈퇴 -->
+    <delete id="deleteUser">
+        DELETE FROM USERS WHERE user_id = #{userId}
+    </delete>
+
+    <!-- 마이페이지 -사용자 정보 조회 -->
+    <select id="getUserById">
+        SELECT *
+        FROM USERS
+        WHERE user_id = #{userId}
+    </select>
+
+    <!--    이메일로 사용자 조회 -->
+    <select id="getUserByEmail">
+    SELECT *
+    FROM USERS
+    WHERE user_email = #{userEmail}
+    </select>
+
+    <!-- 마이페이지 - 사용자 정보 수정 -->
+    <update id="updateUser">
+        UPDATE USERS
+        SET
+            user_name=#{userName},
+            user_email= #{userEmail},
+            user_phone = #{userPhone},
+            user_gender = #{userGender},
+            user_birthdate = #{userBirthdate},
+            user_address = #{userAddress},
+            user_password = #{userPassword},
+            user_profile_image = #{userProfileImage}
+        WHERE user_id = #{userId}
+    </update>
+
+    
+    
+</mapper>
