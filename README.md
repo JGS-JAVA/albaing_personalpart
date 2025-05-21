@@ -4,6 +4,8 @@ JGS-JAVA/albaing_copy이 레포지토리는 전체 팀 프로젝트에서 제가
 
 UserController 파일에선 회원탈퇴 부분만 작성했다.
 
+AuthController 파일에서 resumeService.createResumeForUser(user); 부분은 이력서 담당 팀원이 작성했다.
+
 JobpostDetail.jsx 파일에선 "지도에서 내 주소와 함께 보기" 링크만 작성했다.
 
 JobpostList.jsx 파일에선 근접 공고 관련 상태 추가, 사용자 주소 정보 로드,
